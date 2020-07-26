@@ -25,70 +25,82 @@ include("php/dynamic-table.php");
 
 <head>
   <?php include("php/head.php"); ?>
+
 </head>
 
-<body>
+<body class="main">
   <!--Navbar-->
   <?php include("php/navbar.php"); ?>
 
   <!--Main-->
-  <!-- Header - set the background image for the header in the line below -->
-  <header class="py-5 bg-image-full" style="background-image: url('images/lotto-balls.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;">
-    <img class="img-fluid d-block mx-auto" style="height: 150px;" src="" alt="">
-  </header>
 
   <!-- Content section -->
-  <section class="py-5">
-    <div class="container">
-      <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
+  <div class="container mt-2 mb-2 pt-1 p-3" style="border: 1px solid #000000; border-radius: 12px; background-color: #ffffff;">
+    <div>
+      <h1>Top Competitions</h1>
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1"></li>
-          <li data-target="#myCarousel" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
-
-        <!-- Wrapper for slides -->
         <div class="carousel-inner">
-          <div class="item active">
-            <img src="competitionImages/5f1d8e18b6af08.04699740.jpg" alt="Los Angeles">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="competitionImages\5f1d8e18b6af08.04699740.jpg" alt="First slide">
           </div>
-
-          <div class="item">
-            <img src="competitionImages/5f1d8e18b6af08.04699740.jpg" alt="Chicago">
+          <div class="carousel-item">
+            <img class="d-block w-100" src="competitionImages\5f1d8e18b6af08.04699740.jpg" alt="Second slide">
           </div>
-
-          <div class="item">
-            <img src="competitionImages/5f1d8e18b6af08.04699740.jpg" alt="New York">
+          <div class="carousel-item">
+            <img class="d-block w-100" src="competitionImages\5f1d8e18b6af08.04699740.jpg" alt="Third slide">
           </div>
         </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
       </div>
     </div>
-  </section>
 
-  <!-- Content section -->
-  <section class="py-5">
+    <hr>
     <div class="container">
-      <h1>Our Competitions</h1>
-      <?php echo $dyn_table; ?>
-    </div>
-    </div>
-  </section>
+      <h1>How to Enter</h1>
+      <div class="card-deck text-center">
+        <div class="card p-2">
+          <h2 class="card-title">Step 1</h2>
+          <div style="height: 100px;">
+            <h5 class="p-2">Pick any competition and select your Winning ticket! You can even select multiple tickets.</h5>
+          </div>
+          <i class="fa fa-ticket p-2" style="font-size: 64px;" aria-hidden="true"></i>
+        </div>
+        <div class="card p-2">
+          <h2 class="card-title">Step 2</h2>
+          <div style="height: 100px;">
+            <h5 class="p-2">Head over to the checkout to purchase your selected tickets.</h5>
+          </div>
+          <i class="fa fa-money p-2" style="font-size: 64px;" aria-hidden="true"></i>
+        </div>
+        <div class="card p-2">
+          <h2 class="card-title">Step 3</h2>
+          <div style="height: 100px;">
+            <h5 class="p-2">Watch our streams live from FaceBook to find out if you have won.</h5>
+          </div>
+          <i class="fa fa-trophy p-2" style="font-size: 64px;" aria-hidden="true"></i>
+        </div>
+      </div>
+      <hr>
 
-  <hr>
+      <!-- Content section -->
+      <div class="container">
+        <h1>All Competitions</h1>
+        <?php echo $dyn_table; ?>
+      </div>
+    </div>
 
-  <!-- Image element - set the background image for the header in the line below -->
-  <div class="py-5 bg-image-full" style="background-image: url('images/red_car.jpg');  background-repeat: no-repeat; background-size: cover; background-position: center;"">
     
   </div>
 

@@ -14,7 +14,7 @@ if (mysqli_num_rows($results) > 0) {
         //$interval = $datetime1->diff($datetime2);
 
         $dyn_table .= '
-        <div class="card card-default" style=" border: 1px solid #505050">
+        <div class="card card-default" style=" border: 1px solid #505050; box-shadow: 10px 10px 5px grey;">
             <img class="card-img-top" src="'.$row['image'].'" alt="Card image cap">
             <div class="card-body">
                 <h4 class="card-title" style="float: left">'.$row['title'].'</h5>
