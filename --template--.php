@@ -5,12 +5,24 @@ __________      ___.                  __     __      __         __   __   .__
  |    |   (  <_> ) \_\ \  ___/|  | \/|  |    \        /  / __ \|  | |    <|  |   |  \
  |____|_  /\____/|___  /\___  >__|   |__|     \__/\  /  (____  /__| |__|_ \__|___|  /
 -->
+
+<?php
+    // Initialize the session
+    session_start();
+
+    // connects to the datbase
+    include("php/connection.php");
+
+    // logout code
+    include("php/logout.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <?php include("php/head.php"); ?>
 </head>
-<body>
+<body class="main">
 
   <!--Navbar-->
   <?php include("php/navbar.php"); ?>
@@ -22,3 +34,4 @@ __________      ___.                  __     __      __         __   __   .__
   <?php include("php/footer.php"); ?>
 </body>
 </html>
+
