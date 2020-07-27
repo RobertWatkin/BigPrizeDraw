@@ -35,7 +35,9 @@ include("php/dynamic-table.php");
   <!--Main-->
 
   <!-- Content section -->
-  <div class="container mt-2 mb-2 pt-1 p-3" style="border: 1px solid #000000; border-radius: 12px; background-color: #ffffff;">
+
+
+  <div class="container mt-2 mb-2 pt-1 p-3" style="border: 1px solid #000000; border-radius:12px; background-color: #ffffff;">
     <div>
       <h1>Top Competitions</h1>
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -66,10 +68,12 @@ include("php/dynamic-table.php");
       </div>
     </div>
 
+    <img class="mb-5" src="images/LogoBanner.jpg" alt="Logo Banner" style="width:100%;" />
+
     <hr>
     <div class="container">
       <h1>How to Enter</h1>
-      <div class="card-deck text-center">
+      <div class="card-deck text-center mb-5">
         <div class="card p-2">
           <h2 class="card-title">Step 1</h2>
           <div style="height: 100px;">
@@ -92,19 +96,19 @@ include("php/dynamic-table.php");
           <i class="fa fa-trophy p-2" style="font-size: 64px;" aria-hidden="true"></i>
         </div>
       </div>
+
+
       <hr>
 
       <!-- Content section -->
-      <div class="container">
+      <div class="container mt-5">
         <h1>All Competitions</h1>
         <?php echo $dyn_table; ?>
       </div>
     </div>
-
-    
   </div>
 
-  
+
 
 
   <!--Footer-->
