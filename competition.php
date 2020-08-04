@@ -36,7 +36,6 @@ $result = mysqli_query($conn, $query);
 
 <head>
   <?php include("php/head.php"); ?>
-
 </head>
 
 <body class="main">
