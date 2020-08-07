@@ -25,10 +25,14 @@ include("php/dynamic-table.php");
 $query = "SELECT * FROM `tblcompetitions` WHERE competitionID=".$_GET['comp'];
 $result = mysqli_query($conn, $query);
 
-// verify password if accounts with email have been found
-
-
-
+// Handles button presses for the site
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+  if (!empty($_POST["tickets"])){
+    foreach($_POST["tickets"] as $ticket){
+      echo $ticket." ";
+    }
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +40,7 @@ $result = mysqli_query($conn, $query);
 
 <head>
   <?php include("php/head.php"); ?>
+  <link rel="stylesheet" href="stylesheets/compButtons.css">
 </head>
 
 <body class="main">

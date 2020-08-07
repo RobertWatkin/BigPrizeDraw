@@ -22,15 +22,19 @@ $isActive = $comp['isActive'];
 $query = "SELECT * FROM `tbltickets` WHERE competitionID=".$_GET['comp'];
 $result = mysqli_query($conn, $query);
 
-echo "<div style='display: flex; flex-wrap: wrap; padding: 10px;'>";
+
+echo "
+<form method='post'>
+
+<div style='display: flex; flex-wrap: wrap; justify-content: flex-start; padding: 10px;'>
+";
 while ($row = mysqli_fetch_array($result)){
     if ($row['available'] == 1){
         echo "
-        <button style='width: 60px; height: 60px; background-color: #005100; display: flex; justify-content: center; align-items: center; border: 0px solid #000000; border-radius: 6px; margin: 5px; cursor: default;'>
-            <div style='color: white;'>"
-        .$row['ticketNumber'].
-            "</div>
-        </button>";
+        <div class='formrow'>
+            <input type='checkbox' class='checkbox' name='tickets[]' value='".$row['ticketNumber']."'>
+            <label class='checklabel' style='color: white;' for='".$row['ticketNumber']."'>".$row['ticketNumber']."</label>
+        </div>";
     } else {
         echo "
         <button disabled style='width: 60px; height: 60px; opacity: 0.5; background-color: #000000; display: flex; justify-content: center; align-items: center; border: 0px solid #000000; border-radius: 6px; margin: 5px; cursor: default;'>
@@ -40,7 +44,9 @@ while ($row = mysqli_fetch_array($result)){
         </button>";
     }
 }
-echo "</div>";
+echo "</div>
+<input id='submitButton' class='btn btn-success center' type='submit' name='submit' value='To Cart' />
+</form>";
 
 
 ?>
