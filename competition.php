@@ -28,8 +28,11 @@ $result = mysqli_query($conn, $query);
 // Handles button presses for the site
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
   if (!empty($_POST["tickets"])){
-    foreach($_POST["tickets"] as $ticket){
-      echo $ticket." ";
+    foreach($_POST["tickets"] as $ticketID){
+      if (!isset($_SESSION['basket'])) {
+        $_SESSION['basket'] = array();
+      }
+      array_push($_SESSION["basket"],$ticketID);
     }
   }
 }
