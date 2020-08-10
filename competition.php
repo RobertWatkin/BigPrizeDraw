@@ -27,8 +27,9 @@ $result = mysqli_query($conn, $query);
 
 // Handles button presses for the site
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-  if (!empty($_POST["tickets"])){
-    foreach($_POST["tickets"] as $ticketID){
+
+  if (!empty($_POST["selectedTickets"])){
+    foreach($_POST["selectedTickets"] as $ticketID){
       if (!isset($_SESSION['basket'])) {
         $_SESSION['basket'] = array();
       }

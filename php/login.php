@@ -17,8 +17,12 @@
         if (mysqli_num_rows($result) > 0) {
             while($row = mysqli_fetch_array($result)){
                 if (password_verify($password, $row["password"])){  // checks against encrypted passwords
-
+                    
                     // SUCCESSFUL LOGIN
+                    // Clear session incase variables still have values
+                    session_destroy();
+                    session_start();
+
                     // Set all session variables
                     $_SESSION["loggedin"] = true;
                     $_SESSION["userID"] = $row["userID"];

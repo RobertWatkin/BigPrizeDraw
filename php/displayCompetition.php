@@ -1,4 +1,7 @@
 <?php
+$query = "SELECT * FROM `tblcompetitions` WHERE competitionID=".$_GET['comp'];
+$result = mysqli_query($conn, $query);
+
 $comp = $row = mysqli_fetch_array($result);
 $title = $comp['title'];
 $desc = $comp['description'];
@@ -56,15 +59,15 @@ echo "
 <div class='' data-toggle='buttons' style='display: flex; flex-wrap: wrap; justify-content: flex-start; padding: 10px;'>
 ";
 while ($row = mysqli_fetch_array($result)) {
-    if ($row['available'] == 1) {
+    if ($row['available'] < date('Y-m-d H:i:s')) {
         echo " 
         <label class='btn btn-success' style='margin: 3px; width: 50px; height: 50px;'>
-            <input type='checkbox' name='tickets[]' value='". $row['ticketID'] . "' style='display:none; padding: auto;'><b>" . $row['ticketNumber'] . "</b>
+            <input type='checkbox' name='selectedTickets[]' value='". $row['ticketID'] . "' style='display:none; padding: auto;'><b>" . $row['ticketNumber'] . "</b>
         </label>";
     } else {
         echo "
         <label class='btn btn-info' style='opacity: 0.8; margin: 3px; width: 50px; height: 50px;' disabled>
-            <input type='checkbox' name='tickets[]' value='" . $row['ticketID'] . "' style='display:none; padding: auto;' disabled><b>" . $row['ticketNumber'] . "</b>
+            <input type='checkbox' name='invalid[]' value='" . $row['ticketID'] . "' style='display:none; padding: auto;' disabled><b>" . $row['ticketNumber'] . "</b>
         </label>";
     }
 }
