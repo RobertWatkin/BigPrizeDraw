@@ -55,11 +55,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           //=========================
 
           //=============================================================
+          $basketCount = 0;
+          if (isset($_SESSION['basket'])){
+            $basketCount = count($_SESSION['basket']);
+          }
 
           echo "
           <li class='dropdown'>
             <a href='#' class='dropdown-toggle nav-link' data-toggle='dropdown' role='button' aria-expanded='false'> 
-              <span class='fa fa-gift bigicon'></span> " . count($_SESSION['basket']) . " - Items in Cart
+              <span class='fa fa-gift bigicon'></span> " . $basketCount . " - Items in Cart
               <span class='caret'></span>
             </a>
             <form method='post'>

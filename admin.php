@@ -32,11 +32,19 @@ if (mysqli_num_rows($result) < 1) {
 if (array_key_exists('createCompetition', $_POST)) {
     createCompetition();
 }
-
 function createCompetition()
 {
     header("Location: create-competition.php");
 }
+
+
+if(array_key_exists('select', $_POST)) {
+    selectCompetition();
+  }
+  function selectCompetition(){
+    header("location: edit-competition.php?comp=".$_POST['select']);
+    exit;
+  }
 
 // Display for competitions
 include("php/dynamic-table.php");

@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         if($key==false)
             array_push($_SESSION["basket"],$ticketID);
     }
+    echo "<meta http-equiv='refresh' content='0'>";
   }
 }
 ?>
@@ -65,7 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 $query = "SELECT * FROM `tbltickets` WHERE competitionID=" . $_GET['comp'];
 $result = mysqli_query($conn, $query);
-
 
 echo "
 <hr>
