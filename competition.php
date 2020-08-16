@@ -19,24 +19,6 @@ include("php/logout.php");
 // display comps
 include("php/dynamic-table.php");
 
-
-
-// create sql code to search for users with the given email
-$query = "SELECT * FROM `tblcompetitions` WHERE competitionID=".$_GET['comp'];
-$result = mysqli_query($conn, $query);
-
-// Handles button presses for the site
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-
-  if (!empty($_POST["selectedTickets"])){
-    foreach($_POST["selectedTickets"] as $ticketID){
-      if (!isset($_SESSION['basket'])) {
-        $_SESSION['basket'] = array();
-      }
-      array_push($_SESSION["basket"],$ticketID);
-    }
-  }
-}
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
   <!--Main-->
   <!-- Content section -->
-
+  <?php
+  $query = "SELECT * FROM `tblcompetitions` WHERE competitionID=".$_GET['comp'];
+  $result = mysqli_query($conn, $query);
+  ?>
 
   <div class="container mt-2 mb-2 pt-1 p-3" style="border: 1px solid #000000; border-radius:12px; background-color: #ffffff;">
   <?php

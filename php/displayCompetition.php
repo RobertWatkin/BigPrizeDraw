@@ -1,6 +1,5 @@
 <?php
-$query = "SELECT * FROM `tblcompetitions` WHERE competitionID=".$_GET['comp'];
-$result = mysqli_query($conn, $query);
+
 
 $comp = $row = mysqli_fetch_array($result);
 $title = $comp['title'];
@@ -10,6 +9,21 @@ $numTickets = $comp['numberOfTickets'];
 $image = $comp['image'];
 $date = $comp['drawDate'];
 $isActive = $comp['isActive'];
+
+// Handles button presses for the site
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+
+  if (!empty($_POST["selectedTickets"])){
+    foreach($_POST["selectedTickets"] as $ticketID){
+        if (!isset($_SESSION['basket'])) {
+            $_SESSION['basket'] = array();
+        }
+        $key=array_search($ticketID,$_SESSION['basket']);
+        if($key==false)
+            array_push($_SESSION["basket"],$ticketID);
+    }
+  }
+}
 ?>
 
 <?php echo "

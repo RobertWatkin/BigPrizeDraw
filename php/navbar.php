@@ -1,3 +1,20 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (isset($_POST['delete'])) {
+    if (isset($_POST["delTickets"])) {
+      foreach ($_POST["delTickets"] as $ticketID) {
+        $key = array_search($ticketID, $_SESSION['basket']);
+        if ($key !== false)
+          unset($_SESSION['basket'][$key]);
+        $_SESSION["basket"] = array_values($_SESSION["basket"]);
+      }
+    }
+  } else if (isset($_POST['toCart'])) {
+    header("Location: checkout.php");
+  }
+}
+?>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a href="#" class="navbar-left"><img style="width: 160px;" class="mr-2" src="images/LogoSmall.png" placeholder="Site Logo" alt=""></a>
   <!--<a class="navbar-brand" href="#" id="title">TITLE</a>-->
@@ -36,28 +53,24 @@
           //    IF LOGGED IN
           //
           //=========================
-          // Gather num of items in basket
-          $x = 0;
-          if (isset($_SESSION['basket'])) {
-            foreach ($_SESSION['basket'] as $id) {
-              $x++;
-            }
-          }
+
+          //=============================================================
 
           echo "
           <li class='dropdown'>
             <a href='#' class='dropdown-toggle nav-link' data-toggle='dropdown' role='button' aria-expanded='false'> 
-              <span class='fa fa-gift bigicon'></span> " . $x . " - Items in Cart
+              <span class='fa fa-gift bigicon'></span> " . count($_SESSION['basket']) . " - Items in Cart
               <span class='caret'></span>
             </a>
+            <form method='post'>
             <ul class='dropdown-menu dropdown-cart' style='width: 400px; max-height: 600px; overflow-y: scroll;' role='menu'>";
           $total = 0;
           // Display Items
-          if (isset($_SESSION['basket'])) {
+          if (isset($_SESSION['basket']) && count($_SESSION['basket']) >= 1) {
             // Gather data for tickets
             foreach ($_SESSION['basket'] as $id) {
 
-              
+
 
               $query = "SELECT * FROM `tbltickets` WHERE ticketID=" . $id;
               $result = mysqli_query($conn, $query);
@@ -101,7 +114,7 @@
                     </div>
                     <div class='col'>
                       <div class='box' style='padding: 10px; float: right;'>
-                          <button class='btn btn-danger  fa fa-close'></button>
+                          <input type='checkbox' name='delTickets[]' value=$id>
                       </div>
                     </div>
                   </div>
@@ -115,13 +128,15 @@
           }
           echo "
             </p>Total: <b>£$total</b></p>
-            <button class='btn btn-success' style='width: 30%; min-width: 100px; margin-left: 10px;'>Go To Cart</button>
+            <button class='btn btn-success' style='width: 30%; min-width: 100px; margin-left: 10px;' name='toCart'>Go To Cart</button>
+            <button class='btn btn-danger' style='width: 30%; min-width: 100px; margin-left: 10px;' name='delete' type='submit'>Remove</button>
             </ul>
+            </form>
           </li>
           ";
 
 
-
+          //=============================================================
           //=========================
           //    IF ADMIN
           //
