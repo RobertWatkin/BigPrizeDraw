@@ -16,8 +16,6 @@ include("php/connection.php");
 // logout code
 include("php/logout.php");
 
-// display comps
-include("php/dynamic-table.php");
 
 ?>
 
@@ -36,7 +34,7 @@ include("php/dynamic-table.php");
   <!--Main-->
   <!-- Content section -->
   <?php
-  $query = "SELECT * FROM `tblcompetitions` WHERE competitionID=".$_GET['comp'];
+  $query = "SELECT * FROM `tblcompetitions` WHERE competitionID=" . $_GET['comp'];
   $result = mysqli_query($conn, $query);
   ?>
 
