@@ -102,7 +102,7 @@ __________      ___.                  __     __      __         __   __   .__
             </form>
           ";
 
-          include("../stripe/stripe-payment-form.php");
+          include("stripe/stripe-payment-form.php");
           ?>
   </div>
 
