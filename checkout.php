@@ -7,21 +7,31 @@ __________      ___.                  __     __      __         __   __   .__
 -->
 
 <?php
-    // Initialize the session
-    session_start();
+// Initialize the session
+session_start();
 
-    // connects to the datbase
-    include("php/connection.php");
+// connects to the datbase
+include("php/connection.php");
 
-    // logout code
-    include("php/logout.php");
+// logout code
+include("php/logout.php");
+
+require_once 'config.php';
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <?php include("php/head.php"); ?>
+
+  <!-- Stripe JavaScript library -->
+  <script src="https://js.stripe.com/v3/"></script>
 </head>
+
 <body class="main">
 
   <!--Navbar-->
@@ -29,12 +39,12 @@ __________      ___.                  __     __      __         __   __   .__
 
   <!--Main-->
   <div class="container mt-2 mb-2 pt-1 p-3" style="border: 1px solid #000000; border-radius:12px; background-color: #ffffff;">
-  <?php
- 
-          $total = 0;
-          // Display Items
-          if (isset($_SESSION['basket']) && count($_SESSION['basket']) >= 1) {
-            echo "
+    <div id='paymentResponse'></div>
+    <?php
+    $total = 0;
+    // Display Items
+    if (isset($_SESSION['basket']) && count($_SESSION['basket']) >= 1) {
+      echo "
             <form method='post'>
             <table class='table'>
             <thead>
@@ -46,36 +56,36 @@ __________      ___.                  __     __      __         __   __   .__
               </tr>
             </thead>
             <tbody>";
-            // Gather data for tickets
-            foreach ($_SESSION['basket'] as $id) {
+      // Gather data for tickets
+      foreach ($_SESSION['basket'] as $id) {
 
-              
 
-              $query = "SELECT * FROM `tbltickets` WHERE ticketID=" . $id;
-              $result = mysqli_query($conn, $query);
 
-              $cid = 0;
-              $cimg = "";
-              $ctitle = "";
-              $tnum = 0;
+        $query = "SELECT * FROM `tbltickets` WHERE ticketID=" . $id;
+        $result = mysqli_query($conn, $query);
 
-              while ($row = mysqli_fetch_array($result)) {
-                $tnum = $row['ticketNumber'];
-                $cid = $row['competitionID'];
-              }
+        $cid = 0;
+        $cimg = "";
+        $ctitle = "";
+        $tnum = 0;
 
-              $query = "SELECT * FROM `tblcompetitions` WHERE competitionID=" . $cid;
-              $result = mysqli_query($conn, $query);
+        while ($row = mysqli_fetch_array($result)) {
+          $tnum = $row['ticketNumber'];
+          $cid = $row['competitionID'];
+        }
 
-              while ($row = mysqli_fetch_array($result)) {
-                $cimg = $row['image'];
-                $ctitle = $row['title'];
-                $cprice = $row['pricePerTicket'];
+        $query = "SELECT * FROM `tblcompetitions` WHERE competitionID=" . $cid;
+        $result = mysqli_query($conn, $query);
 
-                $total += $cprice;
+        while ($row = mysqli_fetch_array($result)) {
+          $cimg = $row['image'];
+          $ctitle = $row['title'];
+          $cprice = $row['pricePerTicket'];
 
-                // HTML for navbar basket
-                echo "
+          $total += $cprice;
+
+          // HTML for navbar basket
+          echo "
                 <tr>
                   <th scope='row'>$ctitle</th>
                   <td>$tnum</td>
@@ -84,17 +94,24 @@ __________      ___.                  __     __      __         __   __   .__
                 </tr>
               
               ";
-              }
-            }
-          } else {
-            echo "
+        }
+      }
+    } else {
+      echo "
             <div class='text-center' style='margin: 100px;'>
               <h2 style='margin-bottom: 30px;'> There are no items in your basket </h4>
               <h5>Click <a href='index.php'>here</a> to find competitions</h5>
             </div>
             <hr>";
-          }
-          echo "
+    }
+
+    //
+    //  PAYMENT SECTION
+    //
+
+    $productPrice = $total;
+
+    echo "
             </tbody>
             </table>
             </p>Total: <b>£$total</b></p>
@@ -102,12 +119,67 @@ __________      ___.                  __     __      __         __   __   .__
             </form>
           ";
 
-          include("stripe/stripe-payment-form.php");
-          ?>
+    ?>
+
+    <div id="paymentResponse"></div>
+
+    <div id='buynow'>
+      <button class='stripe-button' id='payButton'>Buy Now</button>
+    </div>
   </div>
+
+  
+  <script>
+    var buyBtn = document.getElementById('payButton');
+    var responseContainer = document.getElementById('paymentResponse');
+    
+    // Create a Checkout Session with the selected product
+    var createCheckoutSession = function(stripe) {
+      return fetch("stripe_charge.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          checkoutSession: 1,
+        }),
+      }).then(function(result) {
+        return result.json();
+      });
+    };
+
+    // Handle any errors returned from Checkout
+    var handleResult = function(result) {
+      if (result.error) {
+        responseContainer.innerHTML = '<p>' + result.error.message + '</p>';
+      }
+      buyBtn.disabled = false;
+      buyBtn.textContent = 'Buy Now';
+    };
+
+    // Specify Stripe publishable key to initialize Stripe.js
+    var stripe = Stripe('<?php echo STRIPE_PUBLISHABLE_KEY; ?>');
+
+    buyBtn.addEventListener("click", function(evt) {
+      buyBtn.disabled = true;
+      buyBtn.textContent = 'Please wait...';
+
+
+      createCheckoutSession().then(function(data) {
+        if (data.sessionId) {
+          stripe.redirectToCheckout({
+            sessionId: data.sessionId,
+          }).then(handleResult);
+        } else {
+          handleResult(data);
+        }
+      });
+    });
+    
+  </script>
 
   <!--Footer-->
   <?php include("php/footer.php"); ?>
 </body>
-</html>
 
+</html>

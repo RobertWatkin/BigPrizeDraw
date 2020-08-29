@@ -7,6 +7,7 @@ __________      ___.                  __     __      __         __   __   .__
 -->
 
 <?php
+
 // Initialize the session
 session_start();
 
@@ -82,22 +83,29 @@ function selectCompetition(){
     <div class="container">
       <h1>How to Enter</h1>
       <div class="card-deck text-center mb-5" style="display: flex; flex-wrap: wrap; justify-content: center">
-        <div class="card p-2" style="flex: 0 1 280px; margin: 5px;">
+        <div class="card p-2" style="flex: 0 1 250px; margin: 5px;">
           <h2 class="card-title">Step 1</h2>
           <div style="height: 100px;">
             <h5 class="p-2">Pick any competition and select your Winning ticket! You can even select multiple tickets.</h5>
           </div>
           <i class="fa fa-ticket p-2" style="font-size: 64px;" aria-hidden="true"></i>
         </div>
-        <div class="card p-2" style="flex: 0 1 280px; margin: 5px;">
+        <div class="card p-2" style="flex: 0 1 250px; margin: 5px;">
           <h2 class="card-title">Step 2</h2>
+          <div style="height: 100px;">
+            <h5 class="p-2">Answer the competition question to be eligible to enter the competition.</h5>
+          </div>
+          <i class="fa fa-ticket p-2" style="font-size: 64px;" aria-hidden="true"></i>
+        </div>
+        <div class="card p-2" style="flex: 0 1 250px; margin: 5px;">
+          <h2 class="card-title">Step 3</h2>
           <div style="height: 100px;">
             <h5 class="p-2">Head over to the checkout to purchase your selected tickets.</h5>
           </div>
           <i class="fa fa-money p-2" style="font-size: 64px;" aria-hidden="true"></i>
         </div>
-        <div class="card p-2" style="flex: 0 1 280px; margin: 5px;">
-          <h2 class="card-title">Step 3</h2>
+        <div class="card p-2" style="flex: 0 1 250px; margin: 5px;">
+          <h2 class="card-title">Step 4</h2>
           <div style="height: 100px;">
             <h5 class="p-2">Watch our streams live from FaceBook to find out if you have won.</h5>
           </div>
