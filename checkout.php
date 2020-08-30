@@ -18,7 +18,6 @@ include("php/logout.php");
 
 require_once 'config.php';
 
-
 ?>
 
 <!DOCTYPE html>
@@ -108,7 +107,8 @@ require_once 'config.php';
     //
     //  PAYMENT SECTION
     //
-
+    
+    $_SESSION['total'] = $total;
     $productPrice = $total;
 
     echo "
@@ -163,6 +163,7 @@ require_once 'config.php';
     buyBtn.addEventListener("click", function(evt) {
       buyBtn.disabled = true;
       buyBtn.textContent = 'Please wait...';
+
 
 
       createCheckoutSession().then(function(data) {

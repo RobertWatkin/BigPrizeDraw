@@ -1,13 +1,10 @@
-<?php 
-// Include configuration file   
-require_once 'config.php'; 
- 
-// Include Stripe PHP library  
-require_once 'stripe-php/init.php'; 
- 
-// Set API key 
-\Stripe\Stripe::setApiKey(STRIPE_API_KEY); 
- 
+<?php
+require_once 'config.php';
+
+require_once 'stripe-php-master/init.php';
+
+\Stripe\Stripe::setApiKey(STRIPE_API_KEY);
+
 $response = array( 
     'status' => 0, 
     'error' => array( 

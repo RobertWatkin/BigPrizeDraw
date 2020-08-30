@@ -23,12 +23,12 @@ $id = $_SESSION["userID"];
 $query = "SELECT * FROM `tblusers` WHERE userID='$id' and isAdmin=1";
 $result = mysqli_query($conn, $query);
 
-
-
+// redirect if there is no competition
 if (mysqli_num_rows($result) < 1) {
     header("Location: index.php");
 }
 
+// Button press for create competition
 if (array_key_exists('createCompetition', $_POST)) {
     createCompetition();
 }
@@ -37,14 +37,35 @@ function createCompetition()
     header("Location: create-competition.php");
 }
 
-
-if(array_key_exists('select', $_POST)) {
+// Button press for select competition
+if (array_key_exists('select', $_POST)) {
     selectCompetition();
-  }
-  function selectCompetition(){
-    header("location: edit-competition.php?comp=".$_POST['select']);
+}
+function selectCompetition()
+{
+    header("location: edit-competition.php?comp=" . $_POST['select']);
     exit;
-  }
+}
+
+// Button press for sending individual mail
+if (array_key_exists('sendMailIndividual', $_POST)) {
+    sendMailIndividual();
+}
+function sendMailIndividual()
+{
+    header("location: contact-customer.php?id=" . $_POST['sendMailIndividual']);
+    exit;
+}
+
+// Button press to send mail to all
+if (array_key_exists('sendMailAll', $_POST)) {
+    sendMailAll();
+}
+function sendMailAll()
+{
+    header("location: contact-customer.php");
+    exit;
+}
 
 // Display for competitions
 include("php/dynamic-table.php");
@@ -76,7 +97,7 @@ include("php/logout.php");
         <h4>Create Competitions</h4>
         <form method='post'>
 
-            <button class='btn btn-success btn-lg btn-block mb-5 mt-4' type='submit' name='createCompetition' value='logout'>Create a New Competition</button>
+            <button class='btn btn-success btn-lg btn-block mb-5 mt-4' type='submit' name='createCompetition' value='createComp'>Create a New Competition</button>
 
         </form>
 
@@ -94,6 +115,9 @@ include("php/logout.php");
         <!-- =================== View Customers ======================= -->
 
         <h1 class="mt-4">View Members</h1>
+        <form method='post'>
+            <button class='btn btn-secondary btn-lg btn-block' type='submit' name='sendMailAll' value='all'>Send Mail to All</button>
+        </form>
         <?php
         $sql = "SELECT * FROM tblusers"; //You don't need a ; like you do in SQL
         $result = mysqli_query($conn, $sql);
@@ -106,11 +130,17 @@ include("php/logout.php");
                         <th>Surname</th>
                         <th>Email</th>
                         <th>Phone Number</th>
+                        <th>Contact</th>
                     </tr>
             ";
 
             while ($row = mysqli_fetch_array($result)) {   //Creates a loop to loop through results
-                echo "<tr><td>" . $row['userID'] . "</td><td>" . $row['firstName'] . "</td><td>" . $row['surname'] . "</td><td>" . $row['email'] . "</td><td>" . $row['phoneNumber'];
+                echo "<tr><td>" . $row['userID'] .
+                    "</td><td>" . $row['firstName'] .
+                    "</td><td>" . $row['surname'] .
+                    "</td><td>" . $row['email'] .
+                    "</td><td>" . $row['phoneNumber'] .
+                    "</td><td><form method='post'><button class='btn btn-secondary btn-lg btn-block' type='submit' name='sendMailIndividual' value='" . $row['userID'] . "'>Send Mail</button></form></td>";
             }
 
             echo "</table>"; //Close the table in HTML

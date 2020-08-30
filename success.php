@@ -15,6 +15,8 @@ __________      ___.                  __     __      __         __   __   .__
 
     // logout code
     include("php/logout.php");
+
+    
     $payment_id = $statusMsg = ''; 
     $ordStatus = 'error'; 
      

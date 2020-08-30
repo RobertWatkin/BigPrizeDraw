@@ -41,6 +41,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->close();     // close the statement
             $conn->close();     // close the connection
 
+            $subject = $_POST['Subject'];
+  
+            $subject = "Welcome To The Big Prize Draw";
+
+            $message = "Hi $firstName,\n\nYour account has now been successfully created. Get started by having a look at the competitions we currently have available :\n\nFILLER LINK\n\nThanks,\nThe Big Prize Draw Ltd";
+
+ 
+
+            mail($email, $subject, $message);
+ 
             // redirect the the member login page
             header("Location: member-login.php");
             exit();
