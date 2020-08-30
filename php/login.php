@@ -21,7 +21,10 @@
                     // SUCCESSFUL LOGIN
                     // Clear session incase variables still have values
                     session_destroy();
-                    session_start();
+                    if(session_status() == PHP_SESSION_NONE){
+    //session has not started
+    session_start();
+};
 
                     // Set all session variables
                     $_SESSION["loggedin"] = true;

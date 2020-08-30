@@ -7,21 +7,27 @@ __________      ___.                  __     __      __         __   __   .__
 -->
 
 <?php
-    // Initialize the session
-    session_start();
 
-    // connects to the datbase
-    include("php/connection.php");
+if (session_status() == PHP_SESSION_NONE) {
+  //session has not started
+  session_start();
+};
 
-    // logout code
-    include("php/logout.php");
+
+// connects to the datbase
+include("php/connection.php");
+
+// logout code
+include("php/logout.php");
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <?php include("php/head.php"); ?>
 </head>
+
 <body class="main">
 
   <!--Navbar-->
@@ -33,5 +39,5 @@ __________      ___.                  __     __      __         __   __   .__
   <!--Footer-->
   <?php include("php/footer.php"); ?>
 </body>
-</html>
 
+</html>

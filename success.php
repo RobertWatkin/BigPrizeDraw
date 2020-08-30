@@ -8,7 +8,10 @@ __________      ___.                  __     __      __         __   __   .__
 
 <?php
     // Initialize the session
+    if(session_status() == PHP_SESSION_NONE){
+    //session has not started
     session_start();
+};
 
     // connects to the datbase
     include("php/connection.php");
@@ -16,7 +19,7 @@ __________      ___.                  __     __      __         __   __   .__
     // logout code
     include("php/logout.php");
 
-    
+
     $payment_id = $statusMsg = ''; 
     $ordStatus = 'error'; 
      

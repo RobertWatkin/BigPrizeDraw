@@ -8,7 +8,10 @@ __________      ___.                  __     __      __         __   __   .__
 
 <?php
 // Initialize the session
-session_start();
+if(session_status() == PHP_SESSION_NONE){
+    //session has not started
+    session_start();
+};
 
 if (isset($_SESSION["loggedin"]) && ($_SESSION["loggedin"] == "true")){
     header("Location: index.php");

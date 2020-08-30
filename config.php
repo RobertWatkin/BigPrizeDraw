@@ -1,6 +1,9 @@
 <?php
 // Initialize the session
-session_start();
+if(session_status() == PHP_SESSION_NONE){
+    //session has not started
+    session_start();
+};
 
 // Product Information
 $productName = "test";
