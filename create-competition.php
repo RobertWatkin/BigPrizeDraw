@@ -8,9 +8,9 @@ __________      ___.                  __     __      __         __   __   .__
 
 <?php
 // Initialize the session
-if(session_status() == PHP_SESSION_NONE){
-    //session has not started
-    session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  //session has not started
+  session_start();
 };
 
 if (!isset($_SESSION["loggedin"]) && !$_SESSION["loggedin"]) {
@@ -55,46 +55,45 @@ include("php/new-comp.php");
     <h1>New Competition</h1>
     <form <?php echo $_SERVER['PHP_SELF']; ?> method="post" name="signup" enctype="multipart/form-data">
 
-    <div class="form-group" data-children-count="1">
-      <i class="fa fa-gift" style="margin: 3px;"></i>
-      <input type="text" class="form-control" placeholder="Competition Name / Prize" required="required" name="title" />
-    </div>
+      <div class="form-group" data-children-count="1">
+        <i class="fa fa-gift" style="margin: 3px;"></i>
+        <input type="text" class="form-control" placeholder="Competition Name / Prize" required="required" name="title" />
+      </div>
 
-    <div class="form-group" data-children-count="1">
-      <i class="fa fa-gift" style="margin: 3px;"></i>
-      <input type="text" class="form-control" placeholder="Short Description" required="required" name="description" />
-    </div>
+      <div class="form-group" data-children-count="1">
+        <i class="fa fa-gift" style="margin: 3px;"></i>
+        <input type="text" class="form-control" placeholder="Short Description" required="required" name="description" />
+      </div>
 
-    <div class="form-group" data-children-count="1">
-      <i class="fa fa-ticket" style="margin: 3px;"></i>
-      <input type="number" class="form-control" placeholder="Number of Tickets" min="1" step="1" name="numTickets"/>
-    </div>
+      <div class="form-group" data-children-count="1">
+        <i class="fa fa-ticket" style="margin: 3px;"></i>
+        <input type="number" class="form-control" placeholder="Number of Tickets" min="1" step="1" name="numTickets" />
+      </div>
 
-    <div class="form-group" data-children-count="1">
-      <i class="fa fa-gbp" style="margin: 3px;"></i>
-      <input type="number" class="form-control" placeholder="Price per ticket - e.g 2.50" min="0.50" step="0.01" name="price" />
-    </div>
+      <div class="form-group" data-children-count="1">
+        <i class="fa fa-gbp" style="margin: 3px;"></i>
+        <input type="number" class="form-control" placeholder="Price per ticket - e.g 2.50" min="0.50" step="0.01" name="price" />
+      </div>
 
-    <div class="form-group" data-children-count="1">
-      <i class="fa fa-picture-o" style="margin: 3px;"></i> Competition Image
-      <input class="form-control-file" type="file" name="file">
-    </div>
+      <div class="form-group" data-children-count="1">
+        <i class="fa fa-picture-o" style="margin: 3px;"></i> Competition Image
+        <input class="form-control-file" type="file" name="file">
+      </div>
 
 
-    <div class="form-group" data-children-count="1">
-      <i class="fa fa-calendar" style="margin: 3px;"></i> Competition Draw Date
-      <br>
-      <input type="datetime-local" id="drawdate"
-       name="drawDate">
-    </div>
-    
-      
+      <div class="form-group" data-children-count="1">
+        <i class="fa fa-calendar" style="margin: 3px;"></i> Competition Draw Date
+        <br>
+        <input type="datetime-local" id="drawdate" name="drawDate">
+      </div>
 
-    <div class="form-group">
-      <input type="submit" class="btn btn-success btn-block btn-lg" name="Create Competition"></input>
-    </div>
-  </form>
-</div>
+
+
+      <div class="form-group">
+        <input type="submit" class="btn btn-success btn-block btn-lg" name="Create Competition"></input>
+      </div>
+    </form>
+  </div>
 
 
 

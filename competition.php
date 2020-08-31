@@ -8,9 +8,9 @@ __________      ___.                  __     __      __         __   __   .__
 
 <?php
 // Initialize the session
-if(session_status() == PHP_SESSION_NONE){
-    //session has not started
-    session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  //session has not started
+  session_start();
 };
 
 // Connect to Database
@@ -42,7 +42,7 @@ include("php/logout.php");
   ?>
 
   <div class="container mt-2 mb-2 pt-1 p-3" style="border: 1px solid #000000; border-radius:12px; background-color: #ffffff;">
-  <?php
+    <?php
     if (mysqli_num_rows($result) < 1) {
       echo "
       <div class='text-center' style='height: 70vh;'>
@@ -52,7 +52,7 @@ include("php/logout.php");
     } else {
       include("php/displayCompetition.php");
     }
-  ?>
+    ?>
   </div>
 
 

@@ -8,9 +8,9 @@ __________      ___.                  __     __      __         __   __   .__
 
 <?php
 // Initialize the session
-if(session_status() == PHP_SESSION_NONE){
-    //session has not started
-    session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  //session has not started
+  session_start();
 };
 
 // connects to the datbase
@@ -19,7 +19,10 @@ include("php/connection.php");
 // logout code
 include("php/logout.php");
 
+
 require_once 'config.php';
+
+
 
 ?>
 
@@ -40,7 +43,8 @@ require_once 'config.php';
   <?php include("php/navbar.php"); ?>
 
   <!--Main-->
-  <div class="container mt-2 mb-2 pt-1 p-3" style="border: 1px solid #000000; border-radius:12px; background-color: #ffffff;">
+  <div class="container mt-5 mb-5 pt-1 pb-4 p-3" style="border: 1px solid #000000; border-radius:12px; background-color: #ffffff; min-height: 430px;">
+    <h2>Checkout</h2>
     <div id='paymentResponse'></div>
     <?php
     $total = 0;
@@ -110,32 +114,40 @@ require_once 'config.php';
     //
     //  PAYMENT SECTION
     //
-    
+
     $_SESSION['total'] = $total;
     $productPrice = $total;
 
     echo "
             </tbody>
             </table>
-            </p>Total: <b>£$total</b></p>
-            <button class='btn btn-danger' style='width: 40%; min-width: 100px;' name='delete' type='submit'>Remove</button>
+            <p class='p-3'>Total: <b>£$total</b></p>
+            <div style='width: 50%; float: left; text-align: center;'>
+              <button class='btn btn-danger' style='width: 90%;' name='delete' type='submit'>Remove</button>
+            </div>
             </form>
           ";
 
     ?>
 
-    <div id="paymentResponse"></div>
 
-    <div id='buynow'>
-      <button class='stripe-button' id='payButton'>Buy Now</button>
+
+    <div id='buynow' style='width: 50%; float: left;'>
+      <form method="post">
+        <button class='btn btn-success stripe-button' id='payButton' name='pay' style='width: 90%;'>Buy Now</button>
+      </form>
     </div>
+    <div style="height: 50px;"></div>
+    <div id="paymentResponse"></div>
+    <div id="resultMsg"></div>
+    <div id="invalidTickets"></div>
+
   </div>
 
-  
   <script>
     var buyBtn = document.getElementById('payButton');
     var responseContainer = document.getElementById('paymentResponse');
-    
+
     // Create a Checkout Session with the selected product
     var createCheckoutSession = function(stripe) {
       return fetch("stripe_charge.php", {
@@ -168,18 +180,25 @@ require_once 'config.php';
       buyBtn.textContent = 'Please wait...';
 
 
+      var usedTickets = "<?php include('php/checkAvailability.php'); ?>";
 
-      createCheckoutSession().then(function(data) {
-        if (data.sessionId) {
-          stripe.redirectToCheckout({
-            sessionId: data.sessionId,
-          }).then(handleResult);
-        } else {
-          handleResult(data);
-        }
-      });
+
+      if (usedTickets == "") {
+        $('#resultMsg').load('php/setUnavailable.php');
+
+        createCheckoutSession().then(function(data) {
+          if (data.sessionId) {
+            stripe.redirectToCheckout({
+              sessionId: data.sessionId,
+            }).then(handleResult);
+          } else {
+            handleResult(data);
+          }
+        });
+      } else {
+        responseContainer.innerHTML = '<h5 class="p-3 bg-danger text-white"> There has been an error with your request. Tickets <b>' + usedTickets + '</b> is no longer available. Please remove these from your basket<h5>';
+      }
     });
-    
   </script>
 
   <!--Footer-->

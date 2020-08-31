@@ -8,9 +8,9 @@ __________      ___.                  __     __      __         __   __   .__
 
 <?php
 // Initialize the session
-if(session_status() == PHP_SESSION_NONE){
-    //session has not started
-    session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  //session has not started
+  session_start();
 };
 
 if (!isset($_SESSION["loggedin"]) && !$_SESSION["loggedin"]) {
@@ -72,17 +72,17 @@ include("php/edit-comp.php");
 
   <!--Main-->
   <div class='container mt-5 mb-5' style='border: 1px solid #000000; border-radius: 12px; background-color: #ffffff;  box-shadow: 10px 10px 5px grey;'>
-  <?php
-  if (mysqli_num_rows($result) < 1) {
-    echo "
+    <?php
+    if (mysqli_num_rows($result) < 1) {
+      echo "
       <div class='text-center' style='height: 70vh;'>
         <h1 class='mt-5'>This Competition Does Not Exist.</h1>
         <h4>Please click <a href='index.php'>here</a> to return to the home page</h4>
       </div>
     </div>";
-  } else {
-    $row = mysqli_fetch_row($result);
-    echo "
+    } else {
+      $row = mysqli_fetch_row($result);
+      echo "
     <h1>Edit Competition - Competition ID : </h1>
     <form " . $_SERVER['PHP_SELF'] . " method='post' name='signup' enctype='multipart/form-data'>
 
@@ -134,61 +134,61 @@ include("php/edit-comp.php");
     <hr>";
 
 
-    if ($isActive == 1) {
-      echo "
+      if ($isActive == 1) {
+        echo "
       <h2>Select a Winner</h2>
       <hr>
       <form method='post'>
       <div class='' data-toggle='buttons' style='display: flex; flex-wrap: wrap; justify-content: flex-start; padding: 10px;'>
       ";
 
-      $query = "SELECT * FROM `tbltickets` WHERE competitionID=" . $_GET['comp'];
-      $result = mysqli_query($conn, $query);
+        $query = "SELECT * FROM `tbltickets` WHERE competitionID=" . $_GET['comp'];
+        $result = mysqli_query($conn, $query);
 
-      while ($row = mysqli_fetch_array($result)) {
-        if (!empty($row['userID']) && isset($row['userID'])) {
-          echo " 
+        while ($row = mysqli_fetch_array($result)) {
+          if (!empty($row['userID']) && isset($row['userID'])) {
+            echo " 
             <label class='btn btn-success' style='margin: 3px; width: 50px; height: 50px;'>
                 <input type='radio' name='selectedTicket' value='" . $row['ticketID'] . "' style='display:none; padding: auto;'><b>" . $row['ticketNumber'] . "</b>
             </label>";
-        } else {
-          echo "
+          } else {
+            echo "
             <label class='btn btn-info' style='opacity: 0.8; margin: 3px; width: 50px; height: 50px;' disabled>
                 <input type='checkbox' name='invalid[]' value='" . $row['ticketID'] . "' style='display:none; padding: auto;' disabled><b>" . $row['ticketNumber'] . "</b>
             </label>";
+          }
         }
-      }
-      echo "
+        echo "
       </div>
       <input id='submitButton' class='btn btn-success center' type='submit' name='btnSelectWinner' value='Select' onclick=\"return confirm('Are you sure?')\"/>
       </form>
       <br>
       </div>
       ";
-    } else {
-      if (isset($winnerTicketID) && !empty($winnerTicketID)){
-      // Display winner details
+      } else {
+        if (isset($winnerTicketID) && !empty($winnerTicketID)) {
+          // Display winner details
 
-        $query = "SELECT * FROM `tbltickets` WHERE ticketID=" . $winnerTicketID;
-        $result = mysqli_query($conn, $query);
-
-        if (mysqli_num_rows($result) > 0){
-
-          $row = mysqli_fetch_row($result);
-          $tnum = $row[2];
-
-
-
-          $query = "SELECT * FROM `tblusers` WHERE userID=" . $row[4];
+          $query = "SELECT * FROM `tbltickets` WHERE ticketID=" . $winnerTicketID;
           $result = mysqli_query($conn, $query);
 
-          $row = mysqli_fetch_row($result);
-          $fname = $row[1];
-          $sname = $row[2];
-          $email = $row[3];
-          $phone = $row[5];
+          if (mysqli_num_rows($result) > 0) {
 
-          echo "
+            $row = mysqli_fetch_row($result);
+            $tnum = $row[2];
+
+
+
+            $query = "SELECT * FROM `tblusers` WHERE userID=" . $row[4];
+            $result = mysqli_query($conn, $query);
+
+            $row = mysqli_fetch_row($result);
+            $fname = $row[1];
+            $sname = $row[2];
+            $email = $row[3];
+            $phone = $row[5];
+
+            echo "
             <h2>Competition Winner</h2>
             <h6>This competition winner has been drawn. Find their details below :</h6>
             <table class='table'>
@@ -212,19 +212,19 @@ include("php/edit-comp.php");
               </tbody>
             </table>
           ";
-        } else {
-          echo "
+          } else {
+            echo "
           <h2>An error has occured - no ticket could be found with the given ID</h2>";
-        }
-      } else {
-      // Display competition no longer active
-        echo "
+          }
+        } else {
+          // Display competition no longer active
+          echo "
         <h2>This competition is no longer active</h2>
         ";
+        }
       }
     }
-  }
-  ?>
+    ?>
   </div>
   <!--Footer-->
   <?php include("php/footer.php"); ?>

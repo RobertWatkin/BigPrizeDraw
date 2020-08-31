@@ -18,9 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         if (!isset($_SESSION['basket'])) {
             $_SESSION['basket'] = array();
         }
-        $key=array_search($ticketID,$_SESSION['basket']);
-        if($key==false)
-            array_push($_SESSION["basket"],$ticketID);
+
+        if(!in_array($ticketID, $_SESSION['basket']))
+            array_push($_SESSION["basket"],$ticketID);        
     }
     echo "<meta http-equiv='refresh' content='0'>";
   }

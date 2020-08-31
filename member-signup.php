@@ -8,12 +8,12 @@ __________      ___.                  __     __      __         __   __   .__
 
 <?php
 // Initialize the session
-if(session_status() == PHP_SESSION_NONE){
+if (session_status() == PHP_SESSION_NONE) {
     //session has not started
     session_start();
 };
 
-if (isset($_SESSION["loggedin"]) && ($_SESSION["loggedin"] == "true")){
+if (isset($_SESSION["loggedin"]) && ($_SESSION["loggedin"] == "true")) {
     header("Location: index.php");
 }
 
@@ -65,7 +65,7 @@ include("php/signup.php");
                         ";
                         }
                         ?>
-                        
+
                         <div class="form-group" data-children-count="1">
                             <i class="fa fa-user" style="margin: 3px;"></i>
                             <div class="form-inline">
@@ -86,11 +86,11 @@ include("php/signup.php");
                             <input type="password" class="form-control" placeholder="Password*" required="required" name="Password">
                             <input style="margin-top:10px;" type="password" class="form-control" placeholder="Confirm Password*" required="required" name="ConfirmPassword">
                         </div>
-                        
+
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login">
                         </div>
-                        
+
                     </form>
                 </div>
                 <div class="modal-footer">

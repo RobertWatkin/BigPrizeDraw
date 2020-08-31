@@ -9,9 +9,9 @@ __________      ___.                  __     __      __         __   __   .__
 <?php
 
 // Initialize the session
-if(session_status() == PHP_SESSION_NONE){
-    //session has not started
-    session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  //session has not started
+  session_start();
 };
 
 // Connect to Database
@@ -23,11 +23,12 @@ include("php/logout.php");
 // display comps
 include("php/dynamic-table.php");
 
-if(array_key_exists('select', $_POST)) {
+if (array_key_exists('select', $_POST)) {
   selectCompetition();
 }
-function selectCompetition(){
-  header("location: competition.php?comp=".$_POST['select']);
+function selectCompetition()
+{
+  header("location: competition.php?comp=" . $_POST['select']);
   exit;
 }
 ?>

@@ -8,9 +8,9 @@ __________      ___.                  __     __      __         __   __   .__
 
 <?php
 // Initialize the session
-if(session_status() == PHP_SESSION_NONE){
-    //session has not started
-    session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  //session has not started
+  session_start();
 };
 
 // connects to the datbase
@@ -18,6 +18,8 @@ include("php/connection.php");
 
 // logout code
 include("php/logout.php");
+
+include("php/setAvailable.php");
 ?>
 
 <!DOCTYPE html>
@@ -33,10 +35,12 @@ include("php/logout.php");
   <?php include("php/navbar.php"); ?>
 
   <!--Main-->
+  <div class="container mt-5 mb-5 pt-1 pb-4 p-3 text-center" style="border: 1px solid #000000; border-radius:12px; background-color: #ffffff; min-height: 430px;">
   <div class="status">
     <h1 class="error">Your transaction was canceled!</h1>
   </div>
   <a href="index.php" class="btn-link">Back to Product Page</a>
+</div>
 
   <!--Footer-->
   <?php include("php/footer.php"); ?>
