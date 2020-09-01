@@ -66,6 +66,8 @@ include("php/signup.php");
                         }
                         ?>
 
+                        
+
                         <div class="form-group" data-children-count="1">
                             <i class="fa fa-user" style="margin: 3px;"></i>
                             <div class="form-inline">
@@ -88,7 +90,12 @@ include("php/signup.php");
                         </div>
 
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login">
+                            <input type="submit" class="btn btn-primary btn-block btn-lg" value="Register">
+                        </div>
+
+                        <div class='form-group' data-children-count='1'>
+                            <input type='checkbox' id='terms' name='terms'>
+                            <label for='terms'> I Agree To The <a href='terms-and-conditions.php'>Terms and Conditions</a></label>
                         </div>
 
                     </form>

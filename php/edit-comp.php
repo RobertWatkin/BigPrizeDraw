@@ -80,10 +80,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         else{
             $drawDate = $date;
         }
+
+        $featured = 0;
+        if (isset($_POST['featured']))
+            $featured = 1;
     
         // ==== Prepare sql code to create competition ====
         $isActive = 1;
-        $sql = ("UPDATE tblcompetitions SET title='$title', description='$description', drawDate='$drawDate' WHERE competitionID='$competitionID'");
+        $sql = ("UPDATE tblcompetitions SET title='$title', description='$description', drawDate='$drawDate', featured=$featured WHERE competitionID='$competitionID'");
     
         if (mysqli_query($conn, $sql)) {
             $last_id = mysqli_insert_id($conn);

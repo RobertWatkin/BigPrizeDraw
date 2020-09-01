@@ -49,26 +49,39 @@ function selectCompetition()
 
   <!-- Content section -->
 
+  <?php 
+  $sql = "SELECT * FROM `tblcompetitions` WHERE featured=1";
+  $results = mysqli_query($conn, $sql);
+
+  if (mysqli_num_rows($results) > 0) {
+  ?>
 
   <div class="container mt-2 mb-2 pt-1 p-3" style="border: 1px solid #000000; border-radius:12px; background-color: #ffffff;">
     <div>
       <h1>Top Competitions</h1>
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          <?php 
+          for ($x = 0; $x < mysqli_num_rows($results); $x++){
+            echo "<li data-target='#carouselExampleIndicators' data-slide-to='$x'"; if ($x==0) { echo "class='active'"; } echo "></li>
+            ";
+          }
+          ?>
         </ol>
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="d-block w-100" src="competitionImages\5f1d8e18b6af08.04699740.jpg" alt="First slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="competitionImages\5f1d8e18b6af08.04699740.jpg" alt="Second slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="competitionImages\5f1d8e18b6af08.04699740.jpg" alt="Third slide">
-          </div>
+          <?php
+          $x = 0;
+          while ($row = mysqli_fetch_array($results)){
+            echo "
+            <div class='carousel-item "; if ($x==0) { echo "active"; } echo "'>
+              <a href='competition.php?comp=".$row['competitionID']."'>
+              <img class='d-block w-100' src='".$row['image']."' alt='Slide'>
+              </a>
+            </div>
+            ";
+            $x++;
+          }
+          ?>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -81,6 +94,8 @@ function selectCompetition()
       </div>
     </div>
 
+  <?php } ?>
+
     <img class="mb-5" src="images/LogoBanner.jpg" alt="Logo Banner" style="width:100%;" />
 
     <hr>
@@ -89,21 +104,21 @@ function selectCompetition()
       <div class="card-deck text-center mb-5" style="display: flex; flex-wrap: wrap; justify-content: center">
         <div class="card p-2" style="flex: 0 1 250px; margin: 5px;">
           <h2 class="card-title">Step 1</h2>
-          <div style="height: 100px;">
+          <div style="height: 120px;">
             <h5 class="p-2">Pick any competition and select your Winning ticket! You can even select multiple tickets.</h5>
           </div>
           <i class="fa fa-ticket p-2" style="font-size: 64px;" aria-hidden="true"></i>
         </div>
         <div class="card p-2" style="flex: 0 1 250px; margin: 5px;">
           <h2 class="card-title">Step 2</h2>
-          <div style="height: 100px;">
+          <div style="height: 120px;">
             <h5 class="p-2">Answer the competition question to be eligible to enter the competition.</h5>
           </div>
           <i class="fa fa-ticket p-2" style="font-size: 64px;" aria-hidden="true"></i>
         </div>
         <div class="card p-2" style="flex: 0 1 250px; margin: 5px;">
           <h2 class="card-title">Step 3</h2>
-          <div style="height: 100px;">
+          <div style="height: 120px;">
             <h5 class="p-2">Head over to the checkout to purchase your selected tickets.</h5>
           </div>
           <i class="fa fa-money p-2" style="font-size: 64px;" aria-hidden="true"></i>

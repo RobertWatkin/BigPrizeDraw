@@ -12,9 +12,8 @@
             <h6>Quick Links</h6>
             <ul class="footer-links">
               <li><a href="index.php">Home</a></li>
-              <li><a href="about.php">About</a></li>
               <li><a href="contact.php">Contact Us</a></li>
-              <li><a href="#">Sitemap</a></li>
+              <li><a href="terms-and-conditions.php">Terms and Conditions</a></li>
             </ul>
           </div>
         </div>

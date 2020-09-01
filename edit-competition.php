@@ -50,6 +50,7 @@ $image = $comp['image'];
 $date = $comp['drawDate'];
 $isActive = $comp['isActive'];
 $winnerTicketID = $comp['winnerTicketID'];
+$featured = $comp['featured'];
 
 
 // edit competition code
@@ -85,7 +86,12 @@ include("php/edit-comp.php");
       echo "
     <h1>Edit Competition - Competition ID : </h1>
     <form " . $_SERVER['PHP_SELF'] . " method='post' name='signup' enctype='multipart/form-data'>
-
+    
+      <div class='form-group' data-children-count='1'>
+        <input type='checkbox' id='featured' name='featured'"; if ($featured == 1) echo "checked='checked'"; echo ">
+        <label for='featured'> Featured Competition</label>      
+      </div>  
+    
       <div class='form-group' data-children-count='1'>
         <i class='fa fa-gift' style='margin: 3px;'></i>
         <input type='text' class='form-control' placeholder='Competition Name / Prize' required='required' name='title' value='" . $title . "'/>

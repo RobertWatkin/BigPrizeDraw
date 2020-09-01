@@ -73,7 +73,7 @@ echo "
 <div class='' data-toggle='buttons' style='display: flex; flex-wrap: wrap; justify-content: flex-start; padding: 10px;'>
 ";
 while ($row = mysqli_fetch_array($result)) {
-    if ($row['available'] < date('Y-m-d H:i:s')) {
+    if ($row['available'] < date('Y-m-d H:i:s') && $row['purchased'] == 0) {
         echo " 
         <label class='btn btn-success' style='margin: 3px; width: 50px; height: 50px;'>
             <input type='checkbox' name='selectedTickets[]' value='". $row['ticketID'] . "' style='display:none; padding: auto;'><b>" . $row['ticketNumber'] . "</b>
