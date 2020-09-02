@@ -87,6 +87,15 @@ include("php/new-comp.php");
         <input type="datetime-local" id="drawdate" name="drawDate">
       </div>
 
+      <div class="form-group" data-children-count="1">
+        <i class="fa fa-question-circle" style="margin: 3px;"></i> Competition Question
+        <br>
+        <input type="text" class="form-control mb-2" placeholder="Question..." required="required" name="q" />
+        <input type="text" class="form-control" placeholder="Correct Answer..." required="required" name="correct-answer" />
+        <input type="text" class="form-control" placeholder="Incorrect Answer 1..." required="required" name="incorrect-answer-one" />
+        <input type="text" class="form-control" placeholder="Incorrect Answer 2..." required="required" name="incorrect-answer-two" />
+      </div>
+
 
 
       <div class="form-group">

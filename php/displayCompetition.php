@@ -9,21 +9,56 @@ $numTickets = $comp['numberOfTickets'];
 $image = $comp['image'];
 $date = $comp['drawDate'];
 $isActive = $comp['isActive'];
+$qInput = $comp['QA'];
+
+
+$questionAnswers = explode("|", $qInput);
+$qerror = "";
+
+$correct = false;
+if (isset($_SESSION['correct'])){
+    if ($_SESSION['correct']){
+        $correct = true;
+    }
+}
 
 // Handles button presses for the site
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    switch ($_POST['submit']) {
+        case 'Add To Cart':
+            //...
+            if ($correct) {
+                if (!empty($_POST["selectedTickets"])) {
+                    foreach ($_POST["selectedTickets"] as $ticketID) {
+                        if (!isset($_SESSION['basket'])) {
+                            $_SESSION['basket'] = array();
+                        }
 
-  if (!empty($_POST["selectedTickets"])){
-    foreach($_POST["selectedTickets"] as $ticketID){
-        if (!isset($_SESSION['basket'])) {
-            $_SESSION['basket'] = array();
-        }
+                        if (!in_array($ticketID, $_SESSION['basket']))
+                            array_push($_SESSION["basket"], $ticketID);
+                            $_SESSION['correct'] = false;
+                    }
 
-        if(!in_array($ticketID, $_SESSION['basket']))
-            array_push($_SESSION["basket"],$ticketID);        
+                    echo "<meta http-equiv='refresh' content='0'>";
+                }
+            } else {
+                $errorMessage = "You must answer the question correctly to enter the competition!";
+            }
+            break;
+        case 'Submit Answer':
+            //...
+            if (isset($_POST['options'])){
+                if ($_POST['options'] == $questionAnswers[1]){
+                    $_SESSION['correct'] = true;
+                    echo "<meta http-equiv='refresh' content='0'>";
+                } else {
+                    $errorMessage = "You have answered incorrectly";
+                }
+            } else {
+                $errorMessage = "Please select an answer!";
+            }
+            break;
     }
-    echo "<meta http-equiv='refresh' content='0'>";
-  }
 }
 ?>
 
@@ -59,8 +94,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         <h5 class='mt-4 mb-4'>$desc</h5>
         <h5 class='text-center'><b>£$price</b> per ticket</h5>
         <p class='mt-4'>To enter this competition select your tickets below. Your tickets will be added to your cart so you can continue to browse our other competitions</p>
+        
     </div>
 </div>
+<div id='question-answer'>
+<h3>Question : </h3>";
+
+// displays error message to the user
+if (isset($errorMessage) && strlen($errorMessage) != 0) {
+    echo "
+                        <div style='border-radius: 5px; color: #ffffff; background-color: #f05050;'>
+                            <i class='fa fa-ban' style='float: right; margin: 6px;'></i>
+                            <p style='padding: 3px;'>$errorMessage</p>
+                        </div>
+                        ";
+}
+if ($correct) {
+    echo "
+                        <div style='border-radius: 5px; color: #ffffff; background-color: #008000;'>
+                            <p style='padding: 3px; margin: 5px;'>You have answered correctly. Please select your tickets</p>
+                        </div>
+                        ";
+}
+
+echo "
+<form method='post'>
+    <h4>$questionAnswers[0]</h4>
+    <div class='btn-group btn-group-toggle mb-2' data-toggle='buttons'>
+        <label class='btn btn-success'>
+            <input type='radio' name='options' id='option1' value='$questionAnswers[1]' autocomplete='off'>$questionAnswers[1]
+        </label>
+        <label class='btn btn-success'>
+            <input type='radio' name='options' id='option2' value='$questionAnswers[2]' autocomplete='off'>$questionAnswers[2]
+        </label>
+        <label class='btn btn-success'>
+            <input type='radio' name='options' id='option3' value='$questionAnswers[3]' autocomplete='off'>$questionAnswers[3]
+        </label>
+    </div>
+    <br />
+    <input class='btn btn-success' name='submit' type='submit' value='Submit Answer'>
+</form>
+</div>
+<p>(You must answer the question correctly to enter the competition)</p>
 <h2>Select Your Tickets</h2>
 ";
 
@@ -76,7 +151,7 @@ while ($row = mysqli_fetch_array($result)) {
     if ($row['available'] < date('Y-m-d H:i:s') && $row['purchased'] == 0) {
         echo " 
         <label class='btn btn-success' style='margin: 3px; width: 50px; height: 50px;'>
-            <input type='checkbox' name='selectedTickets[]' value='". $row['ticketID'] . "' style='display:none; padding: auto;'><b>" . $row['ticketNumber'] . "</b>
+            <input type='checkbox' name='selectedTickets[]' value='" . $row['ticketID'] . "' style='display:none; padding: auto;'><b>" . $row['ticketNumber'] . "</b>
         </label>";
     } else {
         echo "
@@ -86,12 +161,11 @@ while ($row = mysqli_fetch_array($result)) {
     }
 }
 echo "</div>
-<input id='submitButton' class='btn btn-success center' type='submit' name='submit' value='Add To Cart' />
+<input id='submitButton' name='submit' class='btn btn-success center' type='submit' name='submit' value='Add To Cart' />
 </form>";
 
 
 ?>
-
 <script>
     // Set the date we're counting down to
     var countDownDate = new Date("<?php echo $date; ?>").getTime();

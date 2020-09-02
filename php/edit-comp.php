@@ -73,6 +73,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
         $title = $_POST['title'];
         $description = $_POST['description'];
+
+        $question = $_POST['q'];
+        $correctAnswer = $_POST['correct-answer'];
+        $incorrectAnswerOne = $_POST['incorrect-answer-one'];
+        $incorrectAnswerTwo = $_POST['incorrect-answer-two'];
+
+        $qInput = "$question|$correctAnswer|$incorrectAnswerOne|$incorrectAnswerTwo";
     
         if (!empty($_POST['drawDate'])){
             $drawDate = $_POST['drawDate'];
@@ -87,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
         // ==== Prepare sql code to create competition ====
         $isActive = 1;
-        $sql = ("UPDATE tblcompetitions SET title='$title', description='$description', drawDate='$drawDate', featured=$featured WHERE competitionID='$competitionID'");
+        $sql = ("UPDATE tblcompetitions SET title='$title', description='$description', drawDate='$drawDate', featured=$featured, QA='$qInput' WHERE competitionID='$competitionID'");
     
         if (mysqli_query($conn, $sql)) {
             $last_id = mysqli_insert_id($conn);

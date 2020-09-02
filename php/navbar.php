@@ -29,6 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <li class="nav-item w-sm-100">
         <a class="nav-link" href="contact.php">Contact Us</a>
       </li>
+      <li class="nav-item w-sm-100">
+        <a class="nav-link" href="winners.php">Past Winners</a>
+      </li>
 
     </ul>
     <span class="navbar-text">
@@ -156,7 +159,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </li>
                 ";
           }
-
           echo " 
             <form method='post'>
                 <li>

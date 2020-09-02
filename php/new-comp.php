@@ -52,12 +52,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $price = $_POST['price'];
         $drawDate = $_POST['drawDate'];
 
+        $question = $_POST['q'];
+        $correctAnswer = $_POST['correct-answer'];
+        $incorrectAnswerOne = $_POST['incorrect-answer-one'];
+        $incorrectAnswerTwo = $_POST['incorrect-answer-two'];
+
+        $qInput = "$question|$correctAnswer|$incorrectAnswerOne|$incorrectAnswerTwo";
+
 
 
 
         // ==== Prepare sql code to create competition ====
         $isActive = 1;
-        $sql = ("INSERT INTO tblcompetitions (title, description, pricePerTicket, numberOfTickets, image, drawDate, isActive) VALUES ('$title', '$description', '$price', '$numTickets', '$fileDestination', '$drawDate', '$isActive')");
+        $sql = ("INSERT INTO tblcompetitions (title, description, pricePerTicket, numberOfTickets, image, drawDate, isActive, QA) VALUES ('$title', '$description', '$price', '$numTickets', '$fileDestination', '$drawDate', '$isActive', '$qInput')");
 
         if (mysqli_query($conn, $sql)) {
             $last_id = mysqli_insert_id($conn);
