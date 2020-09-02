@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $errorMessage = "Email taken! Try Again";
             } else {
                 // Encrypts the password
-                $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 // Set member account type
                 $isAdmin = 0;
 

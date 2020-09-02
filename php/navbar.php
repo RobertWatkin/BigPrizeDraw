@@ -53,7 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           //    IF LOGGED IN
           //
           //=========================
-
+          echo "
+          <li class='nav-item w-sm-100'>
+            <a class='nav-link' href='member-profile.php'>My Profile</a>
+          </li>
+          ";
           //=============================================================
           $basketCount = 0;
           if (isset($_SESSION['basket'])){

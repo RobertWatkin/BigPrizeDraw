@@ -23,6 +23,16 @@ if (!isset($_SESSION["loggedin"]) && !$_SESSION["loggedin"]) {
   header("Location: index.php");
 }
 
+// Double check that the user has admin access
+$id = $_SESSION["userID"];
+
+$query = "SELECT * FROM `tblusers` WHERE userID='$id' and isAdmin=1";
+$result = mysqli_query($conn, $query);
+
+if (mysqli_num_rows($result) < 1) {
+  header("Location: index.php");
+}
+
 $all = true;
 
 $firstName = "";

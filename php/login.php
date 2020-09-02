@@ -1,10 +1,9 @@
 <?php
-    $errorMessage = "";
+
 
     // Handles button presses for the site
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
-        echo "$errorMessage";
         // Sets up relevent variables
         $email = $_POST['Email'];
         $password = $_POST['Password'];
@@ -22,9 +21,9 @@
                     // Clear session incase variables still have values
                     session_destroy();
                     if(session_status() == PHP_SESSION_NONE){
-    //session has not started
-    session_start();
-};
+                        //session has not started
+                        session_start();
+                    }
 
                     // Set all session variables
                     $_SESSION["loggedin"] = true;
@@ -34,12 +33,12 @@
                     echo "login successful";
                     // Redirect to the home page
                     header("Location: index.php");
+                    exit();
                 }
             }   
         }
-        else {
-            // Display incrorrect login error message
-            $errorMessage = "Email or Password is incorrect! Please try again.";
-        }
+
+        // Display incrorrect login error message
+        $errorMessage = "Email or Password is incorrect! Please try again.";
+    
     }
-?>
