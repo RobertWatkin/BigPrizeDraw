@@ -56,7 +56,6 @@ include("php/save-details.php");
 
     $query = "SELECT * FROM `tbltickets` WHERE userID='" . $_SESSION['userID'] . "' AND purchased=1";
     $results = mysqli_query($conn, $query);
-
     if (mysqli_num_rows($results) > 0) { ?>
       <table class='table'>
         <thead>
@@ -131,7 +130,7 @@ include("php/save-details.php");
       </div>
 
       <div class="form-group">
-        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Save">
+        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Save" name="submit">
       </div>
     </form>
   </div>
