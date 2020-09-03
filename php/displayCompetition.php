@@ -9,6 +9,7 @@ $numTickets = $comp['numberOfTickets'];
 $image = $comp['image'];
 $date = $comp['drawDate'];
 $isActive = $comp['isActive'];
+$winnerTicketID = $comp['winnerTicketID'];
 $qInput = $comp['QA'];
 
 
@@ -68,10 +69,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class='row'>
     <div class='col-xs-12 col-md-6'>
         <img class='mb-3 ml-2 mr-2' src='$image' alt='Competition Image' style='border-radius: 7px; width: 100%;' />
-        <button class='ml-2 mr-2 p-2 btn btn-primary' style='width:100%;'>Watch the Draw On Facebook!</button>
+        <a href='https://www.facebook.com/groups/682779282509700' class='ml-2 mr-2 p-2 text-white btn btn-primary' style='width:100%;'>Watch the Draw On Facebook!</a>
     </div>
 
-    <div class='col-xs-12 col-md-6' padding: 50px;'>
+    <div class='col-xs-12 col-md-6' padding: 50px;'>";
+    if ($isActive) {
+        echo "
         <h5>Countdown</h5>
         <div class='row text-center'>
             <div class='col-3'>
@@ -90,14 +93,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h4 id='sn'></h4>
                 <p >SECONDS</p>
             </div>
-        </div>
+        </div>";
+    } else {
+            $query = "SELECT * FROM `tbltickets` WHERE ticketID=" . $winnerTicketID;
+            $result = mysqli_query($conn, $query);
+
+            if (mysqli_num_rows($result) > 0) {
+
+                $row = mysqli_fetch_row($result);
+                $tnum = $row[2];
+                echo "<h4>Competition Winner</h4>
+                <p>This competition winner has been drawn and the winning ticket is :</p>
+                <div class='text-center'>
+                <h1>$tnum<h1>
+                </div>
+                <p>If this is your ticket we will get in contact with you via your email or mobile number</p>";
+            } else {
+                echo "
+                <div class='text-center'>
+                <h3>There has been an error retrieving the winning ticket</h3>
+                </div>";
+            }
+        
+    }
+    echo "
+        
         <hr>
         <h5 class='mt-4 mb-4'>$desc</h5>
         <h5 class='text-center'><b>£$price</b> per ticket</h5>
         <p class='mt-4'>To enter this competition select your tickets below. Your tickets will be added to your cart so you can continue to browse our other competitions</p>
         
     </div>
-</div>
+</div>";
+if ($isActive){
+echo "
 <div id='question-answer'>
 <h3>Question : </h3>";
 
@@ -164,6 +193,7 @@ while ($row = mysqli_fetch_array($result)) {
 echo "</div>
 <input id='submitButton' name='submit' class='btn btn-success center' type='submit' name='submit' value='Add To Cart' />
 </form>";
+}
 
 
 ?>
