@@ -52,8 +52,8 @@ include("php/upload-winner-images.php")
 
             while ($row = mysqli_fetch_array($result)) {
                 echo '                
-                <div class="card card-default" style="flex: 0 0 auto; margin: 10px; border: 1px solid #505050; box-shadow: 10px 10px 5px grey;">
-                    <img class="card-img" src="' . $row['imagePath'] . '" alt="Card image cap">
+                <div style="flex: 0 0 300px; margin: 10px;">
+                    <img class="card-img my-auto" style="border: 1px solid #505050; box-shadow: 10px 10px 5px grey;" src="' . $row['imagePath'] . '" alt="Card image cap">
                 </div>
                 ';
             }

@@ -67,7 +67,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h1>$title</h1>
 <div class='row'>
     <div class='col-xs-12 col-md-6'>
-        <img class='mb-5' src='$image' alt='Competition Image' style='border-radius: 7px; width: 100%;' />
+        <img class='mb-3 ml-2 mr-2' src='$image' alt='Competition Image' style='border-radius: 7px; width: 100%;' />
+        <button class='ml-2 mr-2 p-2 btn btn-primary' style='width:100%;'>Watch the Draw On Facebook!</button>
     </div>
 
     <div class='col-xs-12 col-md-6' padding: 50px;'>
